@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MainApp"
         xmlns:gnavi="clr-namespace:MainApp.Gnavi"
         mc:Ignorable="d"
-        Title="{Binding Path=WindowTitle, Mode=OneWay}" Height="600" Width="525">
+        Title="{Binding Path=WindowTitle, Mode=OneWay}" Height="720" Width="1024">
 
     <Window.DataContext>
         <local:MainWindowViewModel />
@@ -27,8 +27,8 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80" />
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="0" Text="エリア" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -36,16 +36,11 @@
                   ItemsSource="{Binding Path=Areas, Mode=OneWay}"
                   SelectedValue="{Binding Path=SelectedArea, Mode=TwoWay}"
                   SelectedValuePath="Code" DisplayMemberPath="Name" />
-
-        <Button Grid.Row="0" Grid.Column="2"  Margin="10, 3" Content="選択解除"
-                Command="{Binding Path=ResetAreaCommand, Mode=OneWay}" />
-
         <TextBlock Grid.Row="1" Grid.Column="0" Text="都道府県" VerticalAlignment="Center" HorizontalAlignment="Center" />
         <ComboBox Grid.Row="1" Grid.Column="1" Margin="10, 3"
                   ItemsSource="{Binding Path=Prefs, Mode=OneWay}"
                   SelectedValue="{Binding Path=SelectedPref, Mode=TwoWay}"
-                  SelectedValuePath="PrefCode" DisplayMemberPath="PrefName" />
-
+                  SelectedValuePath="Code" DisplayMemberPath="Name" />
         <TextBlock Grid.Row="2" Grid.Column="0" Text="エリアL" VerticalAlignment="Center" HorizontalAlignment="Center" />
         <ComboBox Grid.Row="2" Grid.Column="1" Margin="10, 3"
                   ItemsSource="{Binding Path=AreaLs, Mode=OneWay}"
@@ -61,6 +56,7 @@
                   ItemsSource="{Binding Path=AreaSs, Mode=OneWay}"
                   SelectedValue="{Binding Path=SelectedAreaS, Mode=TwoWay}"
                   SelectedValuePath="Code" DisplayMemberPath="Name" />
+        
         <TextBlock Grid.Row="5" Grid.Column="0" Text="カテゴリL" VerticalAlignment="Center" HorizontalAlignment="Center" />
         <ComboBox Grid.Row="5" Grid.Column="1" Margin="10, 3"
                   ItemsSource="{Binding Path=CategoryLs, Mode=OneWay}"
@@ -72,36 +68,93 @@
                   SelectedValue="{Binding Path=SelectedCategoryS, Mode=TwoWay}"
                   SelectedValuePath="Code" DisplayMemberPath="Name" />
 
-        <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Width="300" Margin="10, 3" Content="検索"
+        <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="10, 3" Content="検索"
                 Command="{Binding Path=SearchCommand, Mode=OneWay}" />
 
-        <ListView Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="5"
+        <ListView Grid.Row="0" Grid.RowSpan="9" Grid.Column="2" Margin="5"
+                  HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.CanContentScroll="False"
                   ItemsSource="{Binding Path=Rests, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="gnavi:Rest">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80" />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Image Grid.Row="0" Grid.Column="0" 
-                            Source="{Binding Path=ImageUrl.Shop1, Mode=OneWay}" />
+                        <Image Grid.Column="0" Margin="5" Height="250" VerticalAlignment="Top"
+                               Source="{Binding Path=ImageUrl.Shop1, Mode=OneWay}" />
 
-                        <TextBlock Grid.Row="0" Grid.Column="1"
-                                   Text="{Binding Path=Name, Mode=OneWay}" />
-                        <TextBlock Grid.Row="0" Grid.Column="2"
-                                   Text="{Binding Path=Address, Mode=OneWay}" />
+                        <StackPanel Grid.Column="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="店名" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center"
+                                           Text="{Binding Path=Name, Mode=OneWay}" ToolTip="{Binding Path=NameKana, Mode=OneWay}"
+                                           TextWrapping="Wrap" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="住所" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center"
+                                           Text="{Binding Path=Address, Mode=OneWay}" TextWrapping="Wrap" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="最寄駅" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center"
+                                           TextWrapping="Wrap">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}分">
+                                            <Binding Path="Access.Station" Mode="OneWay"/>
+                                            <Binding Path="Access.Walk" Mode="OneWay"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="PR" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center"
+                                           Text="{Binding Path=Pr.Long, Mode=OneWay}" ToolTip="{Binding Path=Pr.Short, Mode=OneWay}"
+                                           TextWrapping="Wrap" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="営業時間" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center"
+                                           Text="{Binding Path=Opentime, Mode=OneWay}" TextWrapping="Wrap" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="定休日" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center"
+                                           Text="{Binding Path=Holiday, Mode=OneWay}" TextWrapping="Wrap" />
+                            </Grid>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-            
+            </ListView.ItemTemplate>            
         </ListView>
-
     </Grid>
 </Window>
