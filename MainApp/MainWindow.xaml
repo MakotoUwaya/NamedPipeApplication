@@ -29,6 +29,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -77,10 +79,31 @@
         <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="10, 3" Content="検索"
                 Command="{Binding Path=SearchCommand, Mode=OneWay}" />
 
+        <Grid Grid.Row="9" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Margin="3" TextAlignment="Left"
+                       Text="{Binding Path=Rests.TotalHitCount, StringFormat=該当件数 {0:N0}件, Mode=OneWay}"  />
+            <TextBlock Grid.Column="1" Margin="3" TextAlignment="Right"
+                       Text="{Binding Path=PageCount, StringFormat={}{0} ページ, Mode=OneWay}"  />
+        </Grid>
+        <Grid Grid.Row="10" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="10, 3" Content="前へ"
+                    Command="{Binding Path=PagePreviewCommand, Mode=OneWay}" />
+            <Button Grid.Column="1" Margin="10, 3" Content="次へ"
+                    Command="{Binding Path=PageNextCommand, Mode=OneWay}" />
+        </Grid>
+
         <ListView Grid.Row="0" Grid.RowSpan="9" Grid.Column="2" Margin="5"
                   HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.CanContentScroll="False"
-                  ItemsSource="{Binding Path=Rests, Mode=OneWay}">
+                  ItemsSource="{Binding Path=Rests.List, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="gnavi:Rest">
                     <Grid>

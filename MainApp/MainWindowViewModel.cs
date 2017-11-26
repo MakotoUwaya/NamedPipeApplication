@@ -245,8 +245,8 @@ namespace MainApp
             }
         }
 
-        private IEnumerable<Rest> rests;
-        public IEnumerable<Rest> Rests
+        private Rests rests;
+        public Rests Rests
         {
             get
             {
@@ -256,12 +256,60 @@ namespace MainApp
             {
                 this.rests = value;
                 this.RaisePropertyChanged(nameof(this.Rests));
+                this.RaisePropertyChanged(nameof(this.PageCount));
+                this.PagePreviewCommand.RaiseCanExecuteChanged();
+                this.PageNextCommand.RaiseCanExecuteChanged();
             }
         }
 
-        public DelegateCommand ResetAreaCommand { get; set; }
+        public bool CanPrevPage()
+        {
+            if (this.Rests == null)
+            {
+                return false;
+            }
+            return 1 < this.Rests.PageOffset;
+        }
+
+        public bool CanNextPage()
+        {
+            if (this.Rests == null)
+            {
+                return false;
+            }
+            return this.Rests.PageOffset < this.MaxPageCount;
+        }
+
+        public int MaxPageCount
+        {
+            get
+            {
+                if (this.Rests == null || this.Rests.TotalHitCount == 0)
+                {
+                    return 0;
+                }
+                return (this.Rests.TotalHitCount / this.Rests.HitPerPage) +
+                    (0 < this.Rests.TotalHitCount % this.Rests.HitPerPage ? 1 : 0);
+            }
+        }
+
+        public string PageCount
+        {
+            get
+            {
+                if (this.Rests == null)
+                {
+                    return "0";
+                }
+                return $"{this.Rests.PageOffset:N0} / {this.MaxPageCount:N0}";
+            }
+        }
 
         public DelegateCommand SearchCommand { get; set; }
+
+        public DelegateCommand PagePreviewCommand { get; set; }
+
+        public DelegateCommand PageNextCommand { get; set; }
 
         public MainWindowViewModel()
         {
@@ -286,7 +334,7 @@ namespace MainApp
             var areaS = new AreaSs(reader);
             Task.Run(async () => await areaS.Load())
                 .ContinueWith(_ => this.AreaSs = areaS.List);
-
+            
             var categoryL = new CategoryLs(reader);
             Task.Run(async () => await categoryL.Load())
                 .ContinueWith(_ => this.CategoryLs = categoryL.List);
@@ -295,17 +343,27 @@ namespace MainApp
             Task.Run(async () => await categoryS.Load())
                 .ContinueWith(_ => this.CategorySs = categoryS.List);
 
-            this.ResetAreaCommand = new DelegateCommand(() => this.SelectedPref = null);
             this.SearchCommand = new DelegateCommand(this.OnSearch);
+            this.PagePreviewCommand = new DelegateCommand(this.OnPagePreview, this.CanPrevPage);
+            this.PageNextCommand = new DelegateCommand(this.OnPageNext, this.CanNextPage);
 
         }
 
-        private async void OnSearch()
+        private void OnSearch()
         {
-            var reader = new HttpDataReader();
-            var param = new Dictionary<string, string>();
+            this.OnSearch(null);            
+        }
 
+        private async void OnSearch(IDictionary<string, string> param)
+        {
+            if (param == null)
+            {
+                param = new Dictionary<string, string>();
+            }
+
+            var reader = new HttpDataReader();
             var selectedArea = CreateSearchAreaCondition();
+
             if (!selectedArea.Key.Equals(string.Empty))
             {
                 param.Add(selectedArea.Key, selectedArea.Value);
@@ -316,9 +374,7 @@ namespace MainApp
             {
                 param.Add(selectedCategory.Key, selectedCategory.Value);
             }
-
-            var rests = await new Rests(reader).Get(param);
-            this.Rests = rests.List;
+            this.Rests = await new Rests(reader).Get(param);
         }
 
         private KeyValuePair<string, string> CreateSearchAreaCondition()
@@ -363,6 +419,24 @@ namespace MainApp
                 return new KeyValuePair<string, string>("category_l", this.SelectedCategoryL);
             }
             return new KeyValuePair<string, string>(string.Empty, string.Empty);
+        }
+
+        private void OnPagePreview()
+        {
+            var param = new Dictionary<string, string>
+            {
+                { "offset_page", $"{this.Rests.PageOffset - 1}" }
+            };
+            this.OnSearch(param);
+        }
+
+        private void OnPageNext()
+        {
+            var param = new Dictionary<string, string>
+            {
+                { "offset_page", $"{this.Rests.PageOffset + 1}" }
+            };
+            this.OnSearch(param);
         }
     }
 }

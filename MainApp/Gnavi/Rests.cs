@@ -19,13 +19,13 @@ namespace MainApp.Gnavi
         public IEnumerable<Rest> List { get; private set; }
 
         [JsonProperty("total_hit_count")]
-        public string TotalHitCount { get; private set; }
+        public int TotalHitCount { get; private set; }
 
         [JsonProperty("hit_per_page")]
-        public string HitPerPage { get; private set; }
+        public int HitPerPage { get; private set; }
 
         [JsonProperty("page_offset")]
-        public string PageOffset { get; private set; }
+        public int PageOffset { get; private set; }
 
         public Rests(IDataReader dataReader) : base(dataReader)
         {
