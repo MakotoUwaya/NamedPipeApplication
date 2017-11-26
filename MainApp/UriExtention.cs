@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace MainApp
 {
@@ -13,7 +14,7 @@ namespace MainApp
                 return uri;
             }
 
-            var param = parameters.Select(p => $"{p.Key}={p.Value}");
+            var param = parameters.Select(p => $"{p.Key}={HttpUtility.UrlEncode(p.Value)}");
             return new Uri($"{uri}?{string.Join("&", param)}");
         }
     }

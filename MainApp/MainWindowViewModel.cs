@@ -245,6 +245,18 @@ namespace MainApp
             }
         }
 
+        private string freeWord;
+        public string FreeWord
+        {
+            get { return this.freeWord; }
+            set
+            {
+                this.freeWord = value;
+                this.RaisePropertyChanged(nameof(this.FreeWord));
+            }
+        }
+
+
         private Rests rests;
         public Rests Rests
         {
@@ -373,6 +385,11 @@ namespace MainApp
             if (!selectedCategory.Key.Equals(string.Empty))
             {
                 param.Add(selectedCategory.Key, selectedCategory.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(this.FreeWord))
+            {               
+                param.Add("freeword", string.Join(",", this.FreeWord.Split(',').Take(10)));
             }
             this.Rests = await new Rests(reader).Get(param);
         }
