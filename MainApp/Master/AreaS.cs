@@ -6,14 +6,14 @@ namespace MainApp.Master
     public class AreaS
     {
         [JsonProperty("areacode_s")]
-        public string Code { get; set; }
+        public string Code { get; set; } = string.Empty;
         [JsonProperty("areaname_s")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         [JsonProperty("garea_middle")]
-        public AreaM AreaM { get; set; }
+        public AreaM AreaM { get; set; } = new AreaM();
         [JsonProperty("garea_large")]
-        public AreaL AreaL { get; set; }
+        public AreaL AreaL { get; set; } = new AreaL();
         [JsonProperty("pref")]
-        public Pref Pref { get; set; }
+        public Pref Pref { get; set; } = new Pref();
     }
 }

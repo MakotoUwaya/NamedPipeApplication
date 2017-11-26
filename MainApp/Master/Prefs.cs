@@ -15,7 +15,7 @@ namespace MainApp.Master
         public Attributes Attributes { get; private set; }
 
         [JsonProperty("pref")]
-        public IEnumerable<Pref> List { get; private set; }
+        public IList<Pref> List { get; private set; }
 
         public Prefs(IDataReader dataReader) : base(dataReader)
         {
@@ -26,6 +26,7 @@ namespace MainApp.Master
             var prefs = await this.dataReader?.Get<Prefs>(this.ResourceLocation.AddParameters(this.DefaultApiParam));
             this.Attributes = prefs.Attributes;
             this.List = prefs.List;
+            this.List.Insert(0, new Pref());
         }
     }
 }

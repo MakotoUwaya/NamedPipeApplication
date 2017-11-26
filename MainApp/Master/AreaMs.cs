@@ -15,7 +15,7 @@ namespace MainApp.Master
         public Attributes Attributes { get; private set; }
 
         [JsonProperty("garea_middle")]
-        public IEnumerable<AreaM> List { get; private set; }
+        public IList<AreaM> List { get; private set; }
 
         public AreaMs(IDataReader dataReader) : base(dataReader)
         {
@@ -26,6 +26,7 @@ namespace MainApp.Master
             var areaM = await this.dataReader?.Get<AreaMs>(this.ResourceLocation.AddParameters(this.DefaultApiParam));
             this.Attributes = areaM.Attributes;
             this.List = areaM.List;
+            this.List.Insert(0, new AreaM());
         }
     }
 }

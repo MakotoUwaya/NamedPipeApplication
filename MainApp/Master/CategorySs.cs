@@ -15,7 +15,7 @@ namespace MainApp.Master
         public Attributes Attributes { get; private set; }
 
         [JsonProperty("category_s")]
-        public IEnumerable<CategoryS> List { get; private set; }
+        public IList<CategoryS> List { get; private set; }
 
         public CategorySs(IDataReader dataReader) : base(dataReader)
         {
@@ -26,6 +26,7 @@ namespace MainApp.Master
             var categorySs = await this.dataReader?.Get<CategorySs>(this.ResourceLocation.AddParameters(this.DefaultApiParam));
             this.Attributes = categorySs.Attributes;
             this.List = categorySs.List;
+            this.List.Insert(0, new CategoryS());
         }
     }
 }

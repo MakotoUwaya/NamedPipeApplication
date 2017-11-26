@@ -6,11 +6,11 @@ namespace MainApp.Master
     public class AreaL
     {
         [JsonProperty("areacode_l")]
-        public string Code { get; set; }
+        public string Code { get; set; } = string.Empty;
         [JsonProperty("areaname_l")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         [JsonProperty("pref")]
-        public Pref Pref { get; set; }
+        public Pref Pref { get; set; } = new Pref();
     }
 
 }
