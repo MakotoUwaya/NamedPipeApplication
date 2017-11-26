@@ -54,10 +54,10 @@ namespace MainApp.Gnavi
         public string Fax { get; set; }
 
         [JsonProperty("opentime")]
-        public string Opentime { get; set; }
+        public object Opentime { get; set; }
 
         [JsonProperty("holiday")]
-        public string Holiday { get; set; }
+        public object Holiday { get; set; }
 
         [JsonProperty("access")]
         public Access Access { get; set; }
@@ -123,9 +123,9 @@ namespace MainApp.Gnavi
         [JsonProperty("line")]
         public string Line { get; set; }
         [JsonProperty("station")]
-        public string Station { get; set; }
+        public object Station { get; set; }
         [JsonProperty("station_exit")]
-        public string Station_exit { get; set; }
+        public object Station_exit { get; set; }
         [JsonProperty("walk")]
         public string Walk { get; set; }
         [JsonProperty("note")]
