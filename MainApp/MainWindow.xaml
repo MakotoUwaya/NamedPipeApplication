@@ -134,6 +134,22 @@
                                     <ColumnDefinition Width="80" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="業態" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center" TextWrapping="Wrap">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1} {2}">
+                                            <Binding Path="Code.CategoryNameLs[0]" Mode="OneWay"/>
+                                            <Binding Path="Code.CategoryNameSs[0]" Mode="OneWay"/>
+                                            <Binding Path="Category" Mode="OneWay"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="店名" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center"
                                            Text="{Binding Path=Name, Mode=OneWay}" ToolTip="{Binding Path=NameKana, Mode=OneWay}"
