@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MainApp.Gnavi
 {
@@ -15,8 +16,29 @@ namespace MainApp.Gnavi
         [JsonProperty("@attributes")]
         public Attributes Attributes { get; private set; }
 
+        public IEnumerable<Rest> List
+        {
+            get
+            {
+                if (this.ListObject == null)
+                {
+                    return null;
+                }
+
+                if (this.ListObject is JArray)
+                {
+                    return JsonConvert.DeserializeObject<IEnumerable<Rest>>(this.ListObject.ToString());
+                }
+
+                return new List<Rest>
+                {
+                    JsonConvert.DeserializeObject<Rest>(this.ListObject.ToString())
+                };
+            }
+        }
+
         [JsonProperty("rest")]
-        public IEnumerable<Rest> List { get; private set; }
+        public object ListObject { get; private set; }
 
         [JsonProperty("total_hit_count")]
         public int TotalHitCount { get; private set; }
@@ -40,7 +62,7 @@ namespace MainApp.Gnavi
                 this.TotalHitCount = rests.TotalHitCount;
                 this.HitPerPage = rests.HitPerPage;
                 this.PageOffset = rests.PageOffset;
-                this.List = rests.List;
+                this.ListObject = rests.ListObject;
             }
             return this;
         }
