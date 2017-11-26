@@ -303,14 +303,66 @@ namespace MainApp
         private async void OnSearch()
         {
             var reader = new HttpDataReader();
-            var param = new Dictionary<string, string>
+            var param = new Dictionary<string, string>();
+
+            var selectedArea = CreateSearchAreaCondition();
+            if (!selectedArea.Key.Equals(string.Empty))
             {
-                { "areacode_s" , this.SelectedAreaS },
-                { "category_s" , this.SelectedCategoryS },
-            };
+                param.Add(selectedArea.Key, selectedArea.Value);
+            }
+
+            var selectedCategory = CreateSearchCategoryCondition();
+            if (!selectedCategory.Key.Equals(string.Empty))
+            {
+                param.Add(selectedCategory.Key, selectedCategory.Value);
+            }
+
             var rests = await new Rests(reader).Get(param);
             this.Rests = rests.List;
         }
 
+        private KeyValuePair<string, string> CreateSearchAreaCondition()
+        {
+            if (!string.IsNullOrWhiteSpace(this.SelectedAreaS))
+            {
+                return new KeyValuePair<string, string>("areacode_s", this.SelectedAreaS);
+            }
+
+            if (!string.IsNullOrWhiteSpace(this.SelectedAreaM))
+            {
+                return new KeyValuePair<string, string>("areacode_m", this.SelectedAreaM);
+            }
+
+            if (!string.IsNullOrWhiteSpace(this.SelectedAreaL))
+            {
+                return new KeyValuePair<string, string>("areacode_l", this.SelectedAreaL);
+            }
+
+            if (!string.IsNullOrWhiteSpace(this.SelectedPref))
+            {
+                return new KeyValuePair<string, string>("pref", this.SelectedPref);
+            }
+
+            if (!string.IsNullOrWhiteSpace(this.SelectedArea))
+            {
+                return new KeyValuePair<string, string>("area", this.SelectedArea);
+            }
+
+            return new KeyValuePair<string, string>(string.Empty, string.Empty);
+        }
+
+        private KeyValuePair<string, string> CreateSearchCategoryCondition()
+        {
+            if (!string.IsNullOrWhiteSpace(this.SelectedCategoryS))
+            {
+                return new KeyValuePair<string, string>("category_s", this.SelectedCategoryS);
+            }
+
+            if (!string.IsNullOrWhiteSpace(this.SelectedCategoryL))
+            {
+                return new KeyValuePair<string, string>("category_l", this.SelectedCategoryL);
+            }
+            return new KeyValuePair<string, string>(string.Empty, string.Empty);
+        }
     }
 }
