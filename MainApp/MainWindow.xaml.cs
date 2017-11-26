@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -24,6 +25,12 @@ namespace MainApp
 
             listView.Items.MoveCurrentToFirst();
             listView.ScrollIntoView(listView.Items.CurrentItem);
+        }
+
+        private void HyperLink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(e.Uri.AbsoluteUri);
+            e.Handled = true;
         }
     }
 }

@@ -151,9 +151,13 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="店名" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center"
-                                           Text="{Binding Path=Name, Mode=OneWay}" ToolTip="{Binding Path=NameKana, Mode=OneWay}"
-                                           TextWrapping="Wrap" />
+                                <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center" TextWrapping="Wrap">
+                                    <Hyperlink x:Name="shopHyperLink" NavigateUri="{Binding Path=Url, Mode=OneWay}"
+                                               ToolTip="{Binding ElementName=shopHyperLink, Path=NavigateUri}"
+                                               RequestNavigate="HyperLink_RequestNavigate">
+                                        <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
+                                    </Hyperlink>
+                                </TextBlock>
                             </Grid>
                             <Grid>
                                 <Grid.ColumnDefinitions>
