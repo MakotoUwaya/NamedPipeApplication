@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainApp"
         xmlns:gnavi="clr-namespace:MainApp.Gnavi"
+        xmlns:converter="clr-namespace:MainApp.Converter"
         mc:Ignorable="d"
         Title="{Binding Path=WindowTitle, Mode=OneWay}" Height="720" Width="1024">
 
+    <Window.Resources>
+        <converter:TextNewLineConverter x:Key="NewLineConverter" />
+    </Window.Resources>
+    
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
@@ -129,7 +134,8 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="PR" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center"
-                                           Text="{Binding Path=Pr.Long, Mode=OneWay}" ToolTip="{Binding Path=Pr.Short, Mode=OneWay}"
+                                           Text="{Binding Path=Pr.Long, Converter={StaticResource NewLineConverter}, Mode=OneWay}" 
+                                           ToolTip="{Binding Path=Pr.Short, Converter={StaticResource NewLineConverter}, Mode=OneWay}"
                                            TextWrapping="Wrap" />
                             </Grid>
                             <Grid>
@@ -139,7 +145,8 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="営業時間" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center"
-                                           Text="{Binding Path=Opentime, Mode=OneWay}" TextWrapping="Wrap" />
+                                           Text="{Binding Path=Opentime, Converter={StaticResource NewLineConverter}, Mode=OneWay}" 
+                                           TextWrapping="Wrap" />
                             </Grid>
 
                             <Grid>
@@ -149,7 +156,8 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="定休日" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBlock Grid.Column="1" Margin="10, 3" VerticalAlignment="Center"
-                                           Text="{Binding Path=Holiday, Mode=OneWay}" TextWrapping="Wrap" />
+                                           Text="{Binding Path=Holiday, Converter={StaticResource NewLineConverter}, Mode=OneWay}" 
+                                           TextWrapping="Wrap" />
                             </Grid>
                         </StackPanel>
                     </Grid>

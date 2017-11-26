@@ -72,6 +72,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ApiBase.cs" />
+    <Compile Include="Converter\TextNewLineConverter.cs" />
     <Compile Include="Gnavi\Rest.cs" />
     <Compile Include="Master\MasterBase.cs" />
     <Compile Include="Attributes.cs" />
