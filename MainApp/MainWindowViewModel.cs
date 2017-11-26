@@ -83,7 +83,7 @@ namespace MainApp
 
                 if (!string.IsNullOrWhiteSpace(this.SelectedArea))
                 {
-                    return this.areaLs.Where(a => ((IList<string>)this.Prefs).Contains(a.Pref.Code));
+                    return this.areaLs.Where(a => this.Prefs.Contains(a.Pref));
                 }
 
                 return this.areaLs;
@@ -125,7 +125,7 @@ namespace MainApp
 
                 if (!string.IsNullOrWhiteSpace(this.SelectedArea))
                 {
-                    return this.areaMs.Where(a => ((IList<string>)this.Prefs).Contains(a.Pref.Code));
+                    return this.areaMs.Where(a => this.Prefs.Contains(a.Pref));
                 }
                 return this.areaMs;
             }
@@ -169,7 +169,7 @@ namespace MainApp
                 }
                 if (!string.IsNullOrWhiteSpace(this.SelectedArea))
                 {
-                    return this.areaSs.Where(a => ((IList<string>)this.Prefs).Contains(a.Pref.Code));
+                    return this.areaSs.Where(a => this.Prefs.Contains(a.Pref));
                 }
 
                 return this.areaSs;
