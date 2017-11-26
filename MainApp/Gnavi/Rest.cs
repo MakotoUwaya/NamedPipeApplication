@@ -125,7 +125,7 @@ namespace MainApp.Gnavi
         [JsonProperty("station")]
         public string Station { get; set; }
         [JsonProperty("station_exit")]
-        public string Atation_exit { get; set; }
+        public string Station_exit { get; set; }
         [JsonProperty("walk")]
         public string Walk { get; set; }
         [JsonProperty("note")]
