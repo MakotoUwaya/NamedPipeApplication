@@ -465,6 +465,7 @@ namespace MainApp
             this.SelectedArea = string.Empty;
             this.SelectedCategoryS = string.Empty;
             this.SelectedCategoryL = string.Empty;
+            this.ShopName = string.Empty;
             this.FreeWord = string.Empty;
         }
 
