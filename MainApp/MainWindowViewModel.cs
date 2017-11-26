@@ -319,6 +319,8 @@ namespace MainApp
 
         public DelegateCommand SearchCommand { get; set; }
 
+        public DelegateCommand SearchConditionClearCommand { get; }
+
         public DelegateCommand PagePreviewCommand { get; set; }
 
         public DelegateCommand PageNextCommand { get; set; }
@@ -356,6 +358,7 @@ namespace MainApp
                 .ContinueWith(_ => this.CategorySs = categoryS.List);
 
             this.SearchCommand = new DelegateCommand(this.OnSearch);
+            this.SearchConditionClearCommand = new DelegateCommand(this.OnSearchConditionClear);
             this.PagePreviewCommand = new DelegateCommand(this.OnPagePreview, this.CanPrevPage);
             this.PageNextCommand = new DelegateCommand(this.OnPageNext, this.CanNextPage);
 
@@ -436,6 +439,18 @@ namespace MainApp
                 return new KeyValuePair<string, string>("category_l", this.SelectedCategoryL);
             }
             return new KeyValuePair<string, string>(string.Empty, string.Empty);
+        }
+
+        private void OnSearchConditionClear()
+        {
+            this.SelectedAreaS = string.Empty;
+            this.SelectedAreaM = string.Empty;
+            this.SelectedAreaL = string.Empty;
+            this.SelectedPref = string.Empty;
+            this.SelectedArea = string.Empty;
+            this.SelectedCategoryS = string.Empty;
+            this.SelectedCategoryL = string.Empty;
+            this.FreeWord = string.Empty;
         }
 
         private void OnPagePreview()
