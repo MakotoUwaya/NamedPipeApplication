@@ -30,6 +30,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -77,17 +78,20 @@
                   ItemsSource="{Binding Path=CategorySs, Mode=OneWay}"
                   SelectedValue="{Binding Path=SelectedCategoryS, Mode=TwoWay}"
                   SelectedValuePath="Code" DisplayMemberPath="Name" />
-        <TextBlock Grid.Row="7" Grid.Column="0" Text="フリーワード" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <TextBlock Grid.Row="7" Grid.Column="0" Text="店舗名" VerticalAlignment="Center" HorizontalAlignment="Center" />
         <TextBox Grid.Row="7" Grid.Column="1" Margin="10, 3" FontSize="14"
+                 Text="{Binding Path=ShopName, Mode=TwoWay}" />
+        <TextBlock Grid.Row="8" Grid.Column="0" Text="フリーワード" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <TextBox Grid.Row="8" Grid.Column="1" Margin="10, 3" FontSize="14"
                  Text="{Binding Path=FreeWord, Mode=TwoWay}" ToolTip="「,」区切りで複数ワードが検索可能（１０個まで）" />
 
-        <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="10, 3" Content="検索"
+        <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="10, 3" Content="検索"
                 Command="{Binding Path=SearchCommand, Mode=OneWay}" />
 
-        <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="10, 3" Content="検索条件 全クリア"
+        <Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="10, 3" Content="検索条件 全クリア"
                 Command="{Binding Path=SearchConditionClearCommand, Mode=OneWay}" />
 
-        <Grid Grid.Row="11" Grid.ColumnSpan="2">
+        <Grid Grid.Row="12" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -97,7 +101,7 @@
             <TextBlock Grid.Column="1" Margin="3" TextAlignment="Right"
                        Text="{Binding Path=PageCount, StringFormat={}{0} ページ, Mode=OneWay}"  />
         </Grid>
-        <Grid Grid.Row="12" Grid.ColumnSpan="2">
+        <Grid Grid.Row="13" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -195,7 +199,7 @@
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>            
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </Window>

@@ -256,6 +256,16 @@ namespace MainApp
             }
         }
 
+        private string shopName;
+        public string ShopName
+        {
+            get { return this.shopName; }
+            set
+            {
+                this.shopName = value;
+                this.RaisePropertyChanged(nameof(this.ShopName));
+            }
+        }
 
         private Rests rests;
         public Rests Rests
@@ -390,10 +400,15 @@ namespace MainApp
                 param.Add(selectedCategory.Key, selectedCategory.Value);
             }
 
-            if (!string.IsNullOrWhiteSpace(this.FreeWord))
+            if (!string.IsNullOrWhiteSpace(this.ShopName))
             {               
+                param.Add("name", this.ShopName);
+            }
+            if (!string.IsNullOrWhiteSpace(this.FreeWord))
+            {
                 param.Add("freeword", string.Join(",", this.FreeWord.Split(',').Take(10)));
             }
+
             this.Rests = await new Rests(reader).Get(param);
         }
 
