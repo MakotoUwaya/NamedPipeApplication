@@ -6,10 +6,10 @@ namespace MainApp.Master
     public class Pref
     {
         [JsonProperty("pref_code")]
-        public string PrefCode { get; set; }
+        public string Code { get; set; } = string.Empty;
         [JsonProperty("pref_name")]
-        public string PrefName { get; set; }
+        public string Name { get; set; } = string.Empty;
         [JsonProperty("area_code")]
-        public string AreaCode { get; set; }
+        public string AreaCode { get; set; } = string.Empty;
     }
 }

@@ -78,12 +78,12 @@ namespace MainApp
             {
                 if (!string.IsNullOrWhiteSpace(this.SelectedPref))
                 {
-                    return this.areaLs.Where(a => a.Pref.PrefCode == this.SelectedPref);
+                    return this.areaLs.Where(a => a.Pref.Code == this.SelectedPref);
                 }
 
                 if (!string.IsNullOrWhiteSpace(this.SelectedArea))
                 {
-                    return this.areaLs.Where(a => ((IList<string>)this.Prefs).Contains(a.Pref.PrefCode));
+                    return this.areaLs.Where(a => ((IList<string>)this.Prefs).Contains(a.Pref.Code));
                 }
 
                 return this.areaLs;
@@ -120,12 +120,12 @@ namespace MainApp
 
                 if (!string.IsNullOrWhiteSpace(this.SelectedPref))
                 {
-                    return this.areaMs.Where(a => a.Pref.PrefCode == this.SelectedPref);
+                    return this.areaMs.Where(a => a.Pref.Code == this.SelectedPref);
                 }
 
                 if (!string.IsNullOrWhiteSpace(this.SelectedArea))
                 {
-                    return this.areaMs.Where(a => ((IList<string>)this.Prefs).Contains(a.Pref.PrefCode));
+                    return this.areaMs.Where(a => ((IList<string>)this.Prefs).Contains(a.Pref.Code));
                 }
                 return this.areaMs;
             }
@@ -165,11 +165,11 @@ namespace MainApp
 
                 if (!string.IsNullOrWhiteSpace(this.SelectedPref))
                 {
-                    return this.areaSs.Where(a => a.Pref.PrefCode == this.SelectedPref);
+                    return this.areaSs.Where(a => a.Pref.Code == this.SelectedPref);
                 }
                 if (!string.IsNullOrWhiteSpace(this.SelectedArea))
                 {
-                    return this.areaSs.Where(a => ((IList<string>)this.Prefs).Contains(a.Pref.PrefCode));
+                    return this.areaSs.Where(a => ((IList<string>)this.Prefs).Contains(a.Pref.Code));
                 }
 
                 return this.areaSs;
