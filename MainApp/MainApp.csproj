@@ -72,6 +72,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ApiBase.cs" />
+    <Compile Include="Converter\DefaultImageConverter.cs" />
     <Compile Include="Converter\TextNewLineConverter.cs" />
     <Compile Include="Gnavi\Rest.cs" />
     <Compile Include="Master\MasterBase.cs" />
@@ -144,6 +145,9 @@
       <Project>{d4b1038a-9d9e-4e65-a52c-91a82e286894}</Project>
       <Name>WcfServiceLibrary1</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\ImageNotFound.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

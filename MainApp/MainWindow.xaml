@@ -11,6 +11,7 @@
 
     <Window.Resources>
         <converter:TextNewLineConverter x:Key="NewLineConverter" />
+        <converter:DefaultImageConverter x:Key="DefaultImageConverter" />
     </Window.Resources>
     
     <Window.DataContext>
@@ -89,7 +90,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Image Grid.Column="0" Margin="5" Height="250" VerticalAlignment="Top"
-                               Source="{Binding Path=ImageUrl.Shop1, Mode=OneWay}" />
+                               Source="{Binding Path=ImageUrl.Shop1, Converter={StaticResource DefaultImageConverter}, Mode=OneWay}" />
 
                         <StackPanel Grid.Column="1">
                             <Grid>
