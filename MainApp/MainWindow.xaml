@@ -79,10 +79,10 @@
                   SelectedValue="{Binding Path=SelectedCategoryS, Mode=TwoWay}"
                   SelectedValuePath="Code" DisplayMemberPath="Name" />
         <TextBlock Grid.Row="7" Grid.Column="0" Text="店舗名" VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <TextBox Grid.Row="7" Grid.Column="1" Margin="10, 3" FontSize="14"
+        <TextBox Grid.Row="7" Grid.Column="1" Margin="10, 3" FontSize="14" InputMethod.PreferredImeState="On"
                  Text="{Binding Path=ShopName, Mode=TwoWay}" />
         <TextBlock Grid.Row="8" Grid.Column="0" Text="フリーワード" VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <TextBox Grid.Row="8" Grid.Column="1" Margin="10, 3" FontSize="14"
+        <TextBox Grid.Row="8" Grid.Column="1" Margin="10, 3" FontSize="14" InputMethod.PreferredImeState="On"
                  Text="{Binding Path=FreeWord, Mode=TwoWay}" ToolTip="「,」区切りで複数ワードが検索可能（１０個まで）" />
 
         <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="10, 3" Content="検索"
