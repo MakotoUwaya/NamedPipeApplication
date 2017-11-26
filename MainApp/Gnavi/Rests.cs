@@ -34,11 +34,14 @@ namespace MainApp.Gnavi
         public async Task<Rests> Get(IDictionary<string, string> param)
         {           
             var rests = await this.dataReader?.Get<Rests>(this.ResourceLocation.AddParameters(this.DefaultApiParam.Union(param).ToDictionary(p => p.Key, p => p.Value)));
-            this.Attributes = rests.Attributes;
-            this.TotalHitCount = rests.TotalHitCount;
-            this.HitPerPage = rests.HitPerPage;
-            this.PageOffset = rests.PageOffset;
-            this.List = rests.List;
+            if (rests != null)
+            {
+                this.Attributes = rests.Attributes;
+                this.TotalHitCount = rests.TotalHitCount;
+                this.HitPerPage = rests.HitPerPage;
+                this.PageOffset = rests.PageOffset;
+                this.List = rests.List;
+            }
             return this;
         }
 

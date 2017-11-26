@@ -157,13 +157,13 @@ namespace MainApp.Gnavi
         [JsonProperty("areaname_s")]
         public string AreanameS { get; set; }
         [JsonProperty("category_code_l")]
-        public string[] CategoryCodeLs { get; set; }
+        public object[] CategoryCodeLs { get; set; }
         [JsonProperty("category_name_l")]
-        public string[] CategoryNameLs { get; set; }
+        public object[] CategoryNameLs { get; set; }
         [JsonProperty("category_code_s")]
-        public string[] CategoryCodeSs { get; set; }
+        public object[] CategoryCodeSs { get; set; }
         [JsonProperty("category_name_s")]
-        public string[] CategoryNameSs { get; set; }
+        public object[] CategoryNameSs { get; set; }
     }
 
     [JsonObject("flags")]

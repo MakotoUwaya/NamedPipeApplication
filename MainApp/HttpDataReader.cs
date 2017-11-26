@@ -9,11 +9,19 @@ namespace MainApp
     {
         public async Task<T> Get<T>(Uri uri)
         {
-            var client = new HttpClient();
-            var response = await client.GetAsync(uri);
+            try
+            {
+                var client = new HttpClient();
+                var response = await client.GetAsync(uri);
 
-            var content = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(content);
+                var content = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(content.Replace("{}", "null"));
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
+            
         }
     }
 }
